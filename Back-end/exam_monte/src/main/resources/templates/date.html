@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org" lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Date e Orari Disponibili</title>
+    <style>
+        /* Stili per il form di prenotazione */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.tasto
+{
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.tasto:hover {
+    background-color: #028754;
+}
+    </style>
+</head>
+<body>
+<h1>Date e Orari Disponibili</h1>
+<form action="http://localhost:8080/finalizzaPrenotazione" method="POST">
+    <label for="date-time">Seleziona una data e un orario:</label>
+    <select id="date-time" name="date-time" required>
+        <option th:each="data: ${date}" th:value="${data}" th:text="${data}"></option>
+    </select>
+    <button type="submit">Procedi con la Prenotazione</button>
+</form>
+</body>
+</html>

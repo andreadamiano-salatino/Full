@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org" lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferma Prenotazione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .confirmation {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .confirmation p {
+            margin: 10px 0;
+        }
+
+        .confirmation .code {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<h1>Conferma Prenotazione</h1>
+<div class="confirmation">
+    <p>Grazie per aver effettuato una prenotazione con noi! </p>
+    <p>Il tuo codice di prenotazione univoco è: </p>
+    <p class="code" th:text="${codice}">
+    </p>
+    <p>Ті preghiamo di conservare questo codice per eventuali futuri riferimenti alla tua prenotazione.</p>
+</div>
+</body>
+</html>

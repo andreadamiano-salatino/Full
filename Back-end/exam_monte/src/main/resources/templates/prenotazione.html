@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <title>Prenotazione Ristorante</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+input[type="submit"] {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #028754;
+}
+
+</style>
+</head>
+<body>
+<h1>Prenotazione Ristorante</h1>
+<form action="http://localhost:8080/prenotazione" method="POST">
+    <label for="nome">Nome: </label>
+    <input type="text" id="nome" name="nome" required maxlength="40" />
+    <label for="cognome">Cognome: </label>
+    <input type="text" id="cognome" name="cognome" required maxlength="40" />
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required maxlength="40" />
+    <label for="telefono">Numero di Telefono:</label>
+    <input type="tel" id="telefono" name="telefono" required maxlength="15" />
+    <label for="note">Note della Prenotazione:</label>
+    <textarea id="note" name="note" maxlength="200"></textarea>
+    <label for="coperti">Numero di Coperti:</label>
+    <input type="number" id="coperti" name="coperti" required min="1" max="20" /><br>
+    <label for="ristorante">Ristorante di Riferimento:</label>
+    <input type="text" id="ristorante" name="ristorante" required maxlength="40" />
+    <label>Range di Date di Interesse:</label>
+    <input type="date" id="data-inizio"  name="data-inizio" required />
+    <input type="date" id="data-fine" name="data-fine" required />
+    <br>
+    <button type="submit" class="tasto">Prenota</button>
+</form>
+</body>
+</html>
