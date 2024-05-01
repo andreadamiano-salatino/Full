@@ -1,0 +1,86 @@
+CREATE SCHEMA `reservation` ;
+
+--Ristoranti--
+CREATE TABLE `reservation`.`ristoranti` (
+  `idRistorante` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `indirizzo` VARCHAR(45) NULL,
+  PRIMARY KEY (`idRistorante`));
+
+--Chefs--
+CREATE TABLE `reservation`.`chefs` (
+  `idChef` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `cognome` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `cellulare` VARCHAR(45) NOT NULL,
+  `specializzazione` VARCHAR(45) NOT NULL,
+  `idRistorante` INT NOT NULL,
+  PRIMARY KEY (`idChef`),
+  INDEX `chefs_ristoranti_idx` (`idRistorante` ASC) VISIBLE,
+  CONSTRAINT `chefs_ristoranti`
+    FOREIGN KEY (`idRistorante`)
+    REFERENCES `reservation`.`ristoranti` (`idRistorante`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+--Clienti--
+CREATE TABLE `reservation`.`clienti` (
+  `idCliente` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL,
+  `cognome` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `cellulare` VARCHAR(45) NOT NULL,
+  `intolleranze` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCliente`));
+
+
+--Prenotazioni--
+CREATE TABLE `reservation`.`prenotazioni` (
+  `idPrenotazione` INT NOT NULL AUTO_INCREMENT,
+  `note` VARCHAR(45) NULL,
+  `data` DATETIME NOT NULL,
+  `coperti` INT NOT NULL,
+  `idRistorante` INT NOT NULL,
+  `idCliente` INT NOT NULL,
+  PRIMARY KEY (`idPrenotazione`),
+  INDEX `risotranti_prenotazioni_idx` (`idRistorante` ASC) VISIBLE,
+  INDEX `clienti_prenotazioni_idx` (`idCliente` ASC) VISIBLE,
+  CONSTRAINT `risotranti_prenotazioni`
+    FOREIGN KEY (`idRistorante`)
+    REFERENCES `reservation`.`ristoranti` (`idRistorante`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `clienti_prenotazioni`
+    FOREIGN KEY (`idCliente`)
+    REFERENCES `reservation`.`clienti` (`idCliente`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+
+
+INSERT INTO `reservation`.`ristoranti` (`nome`, `indirizzo`) VALUES ('MangiareBene', 'Via Vecchia 1');
+INSERT INTO `reservation`.`ristoranti` (`nome`, `indirizzo`) VALUES ('MangiareSano', 'Via Nuova 1');
+
+INSERT INTO `reservation`.`chefs` (`nome`, `cognome`, `email`, `cellulare`, `specializzazione`, `idRistorante`) VALUES ('Mario', 'Rossi', 'mario@rossi.it', '1234567890', 'primi', '1');
+INSERT INTO `reservation`.`chefs` (`nome`, `cognome`, `email`, `cellulare`, `specializzazione`, `idRistorante`) VALUES ('Paolo', 'Rossi', 'paolo@rossi.it', '1234567899', 'secondi', '1');
+INSERT INTO `reservation`.`chefs` (`nome`, `cognome`, `email`, `cellulare`, `specializzazione`, `idRistorante`) VALUES ('Maria', 'Bianchi', 'maria@bianchi.it', '1234567898', 'dolci', '1');
+INSERT INTO `reservation`.`chefs` (`nome`, `cognome`, `email`, `cellulare`, `specializzazione`, `idRistorante`) VALUES ('Giulia', 'Bianchi', 'giulia@bianchi.it', '1234567897', 'primi', '2');
+INSERT INTO `reservation`.`chefs` (`nome`, `cognome`, `email`, `cellulare`, `specializzazione`, `idRistorante`) VALUES ('Mario', 'Bianchi', 'mario@bianchi.it', '1234567896', 'secondi', '2');
+
+INSERT INTO `reservation`.`clienti` (`nome`, `cognome`, `email`, `cellulare`) VALUES ('Andrea', 'Salatino', 'andrea@salatino.it', '1234567895');
+INSERT INTO `reservation`.`clienti` (`nome`, `cognome`, `email`, `cellulare`) VALUES ('Roberto', 'Saltino', 'roberto@salatino.it', '1234567894');
+
+INSERT INTO `reservation`.`prenotazioni` (`note`, `data`, `coperti`, `idRistorante`, `idCliente`) VALUES ('siamo in 4', '2024-05-13T19:00', '4', '1', '1');
+INSERT INTO `reservation`.`prenotazioni` (`note`, `data`, `coperti`, `idRistorante`, `idCliente`) VALUES ('arriviamo in orario', '2024-05-22T21:00', '2', '2', '2');
+
+
+SELECT p.idPrenotazione, p.note, p.data, p.coperti, r.nome AS 'Nome Ristorante'
+FROM reservation.prenotazioni AS p
+INNER JOIN reservation.ristoranti AS r ON p.idRistorante=r.idRistorante
+WHERE r.nome = "MangiareBene"
+AND 
+data BETWEEN '2024-05-01' AND '2024-05-31';
+
